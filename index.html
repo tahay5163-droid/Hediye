@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Damla</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffd6e7, #ffb3c6);
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+  }
+  .screen { text-align: center; position: relative; z-index: 2; }
+  .hidden { display: none; }
+  .heart { font-size: 90px; animation: beat 1.2s infinite; }
+  h1 { color: #b0195a; font-size: 40px; margin: 12px 0 24px; }
+  .msg {
+    color: #b0195a;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+  button {
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: #b0195a;
+    color: white;
+    cursor: pointer;
+  }
+  .float {
+    position: fixed;
+    bottom: -40px;
+    font-size: 26px;
+    pointer-events: none;
+    z-index: 1;
+    animation: rise 4s linear forwards;
+  }
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+  @keyframes rise {
+    to { transform: translateY(-110vh); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="screen" id="welcome">
+  <div class="heart">❤️</div>
+  <h1>Hoş geldin Damla</h1>
+  <button onclick="showMessage()">Dokun</button>
+</div>
+
+<div class="screen hidden" id="message">
+  <div class="heart">💖</div>
+  <div class="msg">Kendini üzmüyorsun,<br>kafanı kırarım!</div>
+  <button onclick="showWelcome()">Geri dön</button>
+</div>
+
+<script>
+  const icons = ["❤️", "💖", "💕", "💗", "💘"];
+
+  function spawnHeart(delay) {
+    const h = document.createElement("span");
+    h.className = "float";
+    h.textContent = icons[Math.floor(Math.random() * icons.length)];
+    h.style.left = Math.random() * 95 + "vw";
+    h.style.animationDuration = (3 + Math.random() * 3) + "s";
+    h.style.animationDelay = (delay || 0) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 8000);
+  }
+
+  setInterval(() => {
+    if (!document.getElementById("welcome").classList.contains("hidden")) {
+      spawnHeart(0);
+    }
+  }, 800);
+
+  function showMessage() {
+    document.getElementById("welcome").classList.add("hidden");
+    document.getElementById("message").classList.remove("hidden");
+    for (let i = 0; i < 25; i++) {
+      spawnHeart(Math.random() * 0.8);
+    }
+  }
+
+  function showWelcome() {
+    document.getElementById("message").classList.add("hidden");
+    document.getElementById("welcome").classList.remove("hidden");
+  }
+</script>
+</body>
+</html>

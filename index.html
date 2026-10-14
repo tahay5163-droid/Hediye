@@ -1,106 +1,129 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Damla</title>
+<title>Sana Küçük Bir Sürpriz ❤️</title>
+
 <style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #ffd6e7, #ffb3c6);
-    font-family: Arial, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    overflow: hidden;
-  }
-  .screen { text-align: center; position: relative; z-index: 2; }
-  .hidden { display: none; }
-  .heart { font-size: 90px; animation: beat 1.2s infinite; }
-  h1 { color: #b0195a; font-size: 40px; margin: 12px 0 24px; }
-  .msg {
-    color: #b0195a;
-    font-size: 30px;
-    font-weight: bold;
-    line-height: 1.4;
-    margin-bottom: 24px;
-  }
-  button {
-    padding: 14px 28px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 12px;
-    background: #b0195a;
-    color: white;
-    cursor: pointer;
-  }
-  .float {
-    position: fixed;
-    bottom: -40px;
-    font-size: 26px;
-    pointer-events: none;
-    z-index: 1;
-    animation: rise 4s linear forwards;
-  }
-  @keyframes beat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-  }
-  @keyframes rise {
-    to { transform: translateY(-110vh); opacity: 0; }
-  }
+*{box-sizing:border-box}
+body{
+ margin:0;background:#050008;color:white;
+ font-family:Arial,sans-serif;min-height:100vh;
+ display:flex;align-items:center;justify-content:center;
+ text-align:center;overflow:hidden;
+}
+body:before{
+ content:"";position:fixed;inset:0;
+ background:radial-gradient(circle,#3b0639 0%,#100014 35%,#030305 75%);
+ z-index:-2;
+}
+.card{
+ width:90%;max-width:390px;padding:30px 22px;
+ border:1px solid #ff4b9b55;border-radius:28px;
+ background:#16091dbb;box-shadow:0 0 35px #ff168544;
+ backdrop-filter:blur(12px);
+}
+.heart{
+ font-size:85px;display:inline-block;
+ filter:drop-shadow(0 0 15px #ff1688);
+ animation:beat 1s infinite;
+}
+h1{font-size:27px;color:#ff9bc9}
+p{font-size:18px;line-height:1.7;min-height:85px}
+button{
+ width:100%;padding:15px;margin-top:12px;
+ background:linear-gradient(90deg,#ff267f,#b527ff);
+ border:0;border-radius:15px;color:white;
+ font-size:17px;font-weight:bold;cursor:pointer;
+ box-shadow:0 0 20px #ff168855;
+}
+button:active{transform:scale(.96)}
+.particle{
+ position:fixed;bottom:-40px;pointer-events:none;
+ animation:up 5s linear forwards;z-index:-1;
+}
+@keyframes beat{
+ 0%,100%{transform:scale(1)}
+ 50%{transform:scale(1.2)}
+}
+@keyframes up{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
 </style>
 </head>
+
 <body>
-
-<div class="screen" id="welcome">
-  <div class="heart">❤️</div>
-  <h1>Hoş geldin Damla</h1>
-  <button onclick="showMessage()">Dokun</button>
-</div>
-
-<div class="screen hidden" id="message">
-  <div class="heart">💖</div>
-  <div class="msg">Kendini üzmüyorsun,<br>kafanı kırarım!</div>
-  <button onclick="showWelcome()">Geri dön</button>
+<div class="card">
+ <div class="heart" id="heart">❤️</div>
+ <h1 id="title">Senin için küçük bir sürpriz</h1>
+ <p id="message">
+  Bunu senin için hazırladım... 🥹
+  <br>Hazırsan başlayalım mı?
+ </p>
+ <button id="btn" onclick="next()">💌 İlerle</button>
 </div>
 
 <script>
-  const icons = ["❤️", "💖", "💕", "💗", "💘"];
+let step=0;
 
-  function spawnHeart(delay) {
-    const h = document.createElement("span");
-    h.className = "float";
-    h.textContent = icons[Math.floor(Math.random() * icons.length)];
-    h.style.left = Math.random() * 95 + "vw";
-    h.style.animationDuration = (3 + Math.random() * 3) + "s";
-    h.style.animationDelay = (delay || 0) + "s";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 8000);
-  }
+const scenes=[
+ {
+  heart:"💗",
+  title:"Sana bir şey söyleyeceğim...",
+  msg:"Kendini üzmüyorsun, tamam mı? ❤️ Sen her şeyin en güzelini hak ediyorsun.",
+  btn:"Devam et 💕"
+ },
+ {
+  heart:"🥹",
+  title:"Beni iyi dinle essekkkk 😂",
+  msg:"Canını sıkma essekkkk! Her şeyi kafana takma. Biraz gül, biraz kendine zaman ayır. 🫶",
+  btn:"Bir şey daha var... 💌"
+ },
+ {
+  heart:"💖",
+  title:"Bir gülümse bakalım!",
+  msg:"Bazen her şey üst üste gelir ama bu, hep böyle devam edeceği anlamına gelmez. Kendine iyi davran. 💗",
+  btn:"Son bir sürpriz ❤️"
+ },
+ {
+  heart:"❤️‍🔥",
+  title:"Bu da sana özel...",
+  msg:"Belki bu sadece küçük bir ekran ama içindeki mesaj gerçek: Kendini hiçbir şey için değersiz hissetme. İyi ki varsın! 💖",
+  btn:"Kalpleri uçur! 💘"
+ }
+];
 
-  setInterval(() => {
-    if (!document.getElementById("welcome").classList.contains("hidden")) {
-      spawnHeart(0);
-    }
-  }, 800);
+function next(){
+ if(step<scenes.length){
+  let s=scenes[step];
+  document.getElementById("heart").textContent=s.heart;
+  document.getElementById("title").textContent=s.title;
+  document.getElementById("message").textContent=s.msg;
+  document.getElementById("btn").textContent=s.btn;
+  step++;
+ }else{
+  hearts();
+ }
+ hearts();
+}
 
-  function showMessage() {
-    document.getElementById("welcome").classList.add("hidden");
-    document.getElementById("message").classList.remove("hidden");
-    for (let i = 0; i < 25; i++) {
-      spawnHeart(Math.random() * 0.8);
-    }
-  }
-
-  function showWelcome() {
-    document.getElementById("message").classList.add("hidden");
-    document.getElementById("welcome").classList.remove("hidden");
-  }
+function hearts(){
+ const icons=["❤️","💖","💕","💗","💘","💜","✨"];
+ for(let i=0;i<40;i++){
+  setTimeout(()=>{
+   let e=document.createElement("div");
+   e.className="particle";
+   e.textContent=icons[Math.floor(Math.random()*icons.length)];
+   e.style.left=Math.random()*100+"vw";
+   e.style.fontSize=(18+Math.random()*28)+"px";
+   e.style.animationDuration=(3+Math.random()*4)+"s";
+   document.body.appendChild(e);
+   setTimeout(()=>e.remove(),7500);
+  },i*60);
+ }
+}
 </script>
 </body>
 </html>
